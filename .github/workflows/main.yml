@@ -27,7 +27,7 @@ jobs:
       - name: Upload Html test Report
         uses: actions/upload-artifact@v3
         with:
-          name: index.html
+          name: lint.html
           path: app/build/reports/lint-debug-result.html
 
 

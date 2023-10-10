@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
+      # Set up your GitHub Actions workflow with a specific version of Java
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
 
       - name: Run tests
         run: ./gradlew test

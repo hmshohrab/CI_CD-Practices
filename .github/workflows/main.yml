@@ -1,43 +1,22 @@
-name: CI
+name: Build Android App
+
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Upload html test report
-        uses: actions/upload-artifact@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          name: lint.html
-          path: app/build/reports/lint-results-debug.html
+          distribution: zulu
+          java-version: 17
 
-
-  package:
-    needs: [lint]
-    name: Generate APK
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-
-      - name: set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: ci_cd.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Run Gradle build
+        run: ./gradlew build

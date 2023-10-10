@@ -45,7 +45,7 @@ jobs:
       - name: Run espresso tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 33
           script: ./gradlew connectedCheck
 
       - name: Upload test report
@@ -90,5 +90,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: expense-manager.apk
+          name: ci_cd.apk
           path: app/build/outputs/apk/debug/app-debug.apk
